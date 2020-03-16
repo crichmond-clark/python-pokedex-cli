@@ -6,15 +6,15 @@ separator = ', '
 
 
 def poke_types(types):
-  type_string = ''
+  types_string = ''
   types_length = len(types)
   if len(types) == 1:
-    type_string = f"It has 1 type: {types[0]['type']['name'].capitalize()}"
+    types_string = f"It has 1 type: {types[0]['type']['name'].capitalize()}"
   else:
-    type_string = f"It has {types_length} types: "
+    types_string = f"It has {types_length} types: "
     for poke_type in types:
-      type_string = f"{type_string} {poke_type['type']['name'].capitalize()},"
-  print(type_string)
+      types_string = f"{typed_string} {poke_type['type']['name'].capitalize()},"
+  return types_string
 
 
 def moves(moves_list):
@@ -59,5 +59,5 @@ moves_and_abilities = f"""{moves(poke_data['moves'])}
 print(f'Here is some information obout {user_pokemon}:')
 print('')
 print(f'Pokemon name: {poke_data["name"].capitalize()}')
-poke_types(poke_data['types'])
+print(poke_types(poke_data['types']))
 print(moves_and_abilities)
