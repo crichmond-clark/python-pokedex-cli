@@ -58,7 +58,19 @@ def stats(stats_list):
   return stats_string
 
 
-  # API request
+def pokemon_info():
+  print(f'Here is some information obout {user_pokemon}:')
+  print('')
+  print(f'Pokemon name: {poke_data["name"].capitalize()}')
+  print('')
+  print(poke_types(poke_data['types']))
+  print('')
+  print(stats(poke_data['stats']))
+  print('')
+  print(moves_and_abilities)
+
+
+# API request
 user_pokemon = input('What Pokemon would you like to know about?: ')
 
 response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{user_pokemon}',
@@ -73,12 +85,4 @@ moves_and_abilities = f"""{moves(poke_data['moves'])}
 
 {abilities(poke_data['abilities'])}"""
 
-print(f'Here is some information obout {user_pokemon}:')
-print('')
-print(f'Pokemon name: {poke_data["name"].capitalize()}')
-print('')
-print(poke_types(poke_data['types']))
-print('')
-print(stats(poke_data['stats']))
-print('')
-print(moves_and_abilities)
+pokemon_info()
