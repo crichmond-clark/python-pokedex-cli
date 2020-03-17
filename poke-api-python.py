@@ -13,7 +13,7 @@ def poke_types(types):
   else:
     types_string = f"It has {types_length} types: "
     for poke_type in types:
-      types_string = f"{typed_string} {poke_type['type']['name'].capitalize()},"
+      types_string = f"{types_string} {poke_type['type']['name'].capitalize()},"
   return types_string
 
 
@@ -27,7 +27,7 @@ def moves(moves_list):
   random_moves = [moves_list[index]['move']['name'].capitalize()
                   for index in move_numbers]
   move_names = separator.join(random_moves)
-  moves_string = f"""It can learn {len(moves_list)} moves:
+  moves_string = f"""It can learn {len(moves_list)} moves, including:
     {move_names}"""
   return moves_string
 
@@ -36,10 +36,27 @@ def abilities(abilities_list):
   ability_names_list = [abilities_list[index]['ability']['name'].capitalize()
                         for index in range(0, len(abilities_list))]
   ability_names = separator.join(ability_names_list)
-  abilities_string = f"""It has {len(abilities_list)} abilites
+  abilities_string = f"""It has {len(abilities_list)} abilites:
     {ability_names}"""
-  # abilities_string = abilities_string[0:-1]
   return abilities_string
+
+
+def stats(stats_list):
+  stats_dict = {}
+  count = 0
+  for stat in stats_list:
+    stat_name = stat['stat']['name']
+    stat_level = stat['base_stat']
+    stats_dict[count] = {
+        'stat': stat_name,
+        'level': stat_level
+    }
+    count += 1
+  plain_stats = [f"{stats_dict[index]['stat'].capitalize()}: {stats_dict[index]['level']}" for index in range(
+      0, len(stats_dict))]
+  stats_string = f"Base stats: {separator.join(plain_stats)}"
+  return stats_string
+
 
   # API request
 user_pokemon = input('What Pokemon would you like to know about?: ')
@@ -59,5 +76,9 @@ moves_and_abilities = f"""{moves(poke_data['moves'])}
 print(f'Here is some information obout {user_pokemon}:')
 print('')
 print(f'Pokemon name: {poke_data["name"].capitalize()}')
+print('')
 print(poke_types(poke_data['types']))
+print('')
+print(stats(poke_data['stats']))
+print('')
 print(moves_and_abilities)
